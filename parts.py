@@ -38,7 +38,9 @@ class MedianFrame(ttk.LabelFrame):
         ttkStyle.theme_use('default')
         #去除線條
         ttkStyle.configure('TLabelframe', borderwidth=0)
-        #建立一個Frame
+        #建立與window的連結(重要!!!)
+        self.w = master
+        #----------建立一個Frame(多選一選項)開始---------------
         radionFrame = ttk.LabelFrame(self, text='Radio Buttons')
         radionFrame.pack(side=tk.LEFT)
         #設一個字串的Var
@@ -57,8 +59,34 @@ class MedianFrame(ttk.LabelFrame):
             radionFrame, text='Option 4', variable=self.radioStringVar, value='yellow', command=self.radioEvent)
         self.radiobutton4.pack()
         self.radioStringVar.set('red')
-        
+        # ----------建立一個Frame(多選一選項)結束---------------
+        #-----------------建立多選開始-------------------
+        checkFrames = ttk.LabelFrame(self, text='Check Buttons')
+        checkFrames.pack(side=tk.RIGHT, padx=10, pady=10)
+
+        self.checkStringVar1 = tk.StringVar()
+        self.checkStringVar2 = tk.StringVar()
+        self.checkStringVar3 = tk.StringVar()
+        self.checkStringVar4 = tk.StringVar()
+        self.checkbutton1 = ttk.Checkbutton(
+            checkFrames, text='Option 1', variable=self.checkStringVar1, command=self.checkEvent, onvalue='op1check',offvalue='1off')
+        self.checkbutton1.pack()
+        self.checkbutton2 = ttk.Checkbutton(
+            checkFrames, text='Option 2', variable=self.checkStringVar2, command=self.checkEvent, onvalue='op2check', offvalue='2off')
+        self.checkbutton2.pack()
+        self.checkbutton3 = ttk.Checkbutton(
+            checkFrames, text='Option 3', variable=self.checkStringVar3, command=self.checkEvent, onvalue='op3check', offvalue='3off')
+        self.checkbutton3.pack()
+        self.checkbutton4 = ttk.Checkbutton(
+            checkFrames, text='Option 4', variable=self.checkStringVar4, command=self.checkEvent, onvalue='op4check', offvalue='4off')
+        self.checkbutton4.pack()
+        #------------------建立多選結束---------------------
     # 建立(多選一選項)的事件
     def radioEvent(self):
-        print(self.radioStringVar.get())
-    #建立多選
+        self.w.radioButtonEventOfMedianFrame(self.radioStringVar.get())
+    #建立(多選)的事件
+    def checkEvent(self):
+        print(self.checkStringVar1.get())
+        print(self.checkStringVar2.get())
+        print(self.checkStringVar3.get())
+        print(self.checkStringVar4.get())

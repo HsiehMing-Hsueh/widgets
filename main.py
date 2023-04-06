@@ -9,6 +9,9 @@ class Window(tk.Tk):
         medianFrame = MedianFrame(self)
         medianFrame.pack(fill=tk.X)
 
+    def radioButtonEventOfMedianFrame(self,radioButtonValue):
+        print(radioButtonValue)
+
 def main():
     window = Window()
     window.title("Widgets")
