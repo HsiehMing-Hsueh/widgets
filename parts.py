@@ -8,7 +8,7 @@ class TopFrame(ttk.LabelFrame):
         #去除線條
         ttkStyle = ttk.Style()
         ttkStyle.theme_use('default')
-        ttkStyle.configure('TLabelframe',borderwith=0)
+        ttkStyle.configure('TLabelframe',borderwidth=0)
         #建立花的圖
         flowerImage1 = Image.open("./images/flower1.png")
         self.flowerPhoto1 = ImageTk.PhotoImage(flowerImage1)
@@ -36,6 +36,8 @@ class MedianFrame(ttk.LabelFrame):
         #換選項的圖示
         ttkStyle = ttk.Style()
         ttkStyle.theme_use('default')
+        #去除線條
+        ttkStyle.configure('TLabelframe', borderwidth=0)
         #建立一個Frame
         radionFrame = ttk.LabelFrame(self, text='Radio Buttons')
         radionFrame.pack(side=tk.LEFT)
@@ -56,7 +58,7 @@ class MedianFrame(ttk.LabelFrame):
         self.radiobutton4.pack()
         self.radioStringVar.set('red')
         
-    # 建立多選一選項的事件
+    # 建立(多選一選項)的事件
     def radioEvent(self):
         print(self.radioStringVar.get())
-
+    #建立多選
