@@ -90,3 +90,50 @@ class MedianFrame(ttk.LabelFrame):
         print(self.checkStringVar2.get())
         print(self.checkStringVar3.get())
         print(self.checkStringVar4.get())
+
+class BottomFrame(ttk.LabelFrame):
+    def __init__(self,master,**kwargs):
+        super().__init__(master,**kwargs)
+        #新增w跟window做連結
+        self.w = master
+        listFrame = ttk.LabelFrame(self,text="List Box")
+        listFrame.pack(side=tk.LEFT,padx=10,pady=10)
+        list= tk.Listbox(listFrame,height=6,width=10)
+        list.pack(side=tk.LEFT)
+        #做month的list
+        self.data = []
+        for month in range(1,13):
+            self.data.append(f"{month}月")
+        for item in self.data:
+            list.insert(tk.END,item)
+        #做scrollBar放在listFrame
+        scrollBar =ttk.Scrollbar(listFrame,command=list.yview)
+        scrollBar.pack(side=tk.RIGHT,fill=tk.Y)
+        list.configure(yscrollcommand=scrollBar.set)
+
+        list.bind('<<ListboxSelect>>',self.items_selected)
+        #建立ComboBox的frame
+        comboBoxFrame = ttk.LabelFrame(self,text="Combo Box")
+        comboBoxFrame.pack(side=tk.LEFT, fill=tk.Y, padx=10, pady=10)
+        self.comboBoxValues = ('請選擇月份','January','February','March','April','May','June','July','August','September','October','November','December')
+        #---------------建立ComboBox開始-----------------
+        comboBox = ttk.Combobox(comboBoxFrame,state="readonly",width= 8)
+        comboBox.pack()
+        #combo box的
+        comboBox['values'] =self.comboBoxValues
+        comboBox.current(0)
+        comboBox.bind('<<ComboboxSelected>>',self.month_changed)
+        #----------------建立comboBox結束----------------
+
+    #收集月份的data與window連結
+    def items_selected(self,event):
+        listbox = event.widget
+        (selctedIndex,) = listbox.curselection()
+        selectedValue = self.data[selctedIndex]
+        self.w.listBoxEventOfBottomFrame(selectedValue)
+    #收集value與window連結
+    def month_changed(self,event):
+        combobox = event.widget
+        selectedIndex = combobox.current()
+        selectedValue = self.comboBoxValues[selectedIndex]
+        self.w.comboBoxEventOfBottomFrame(selectedValue)
