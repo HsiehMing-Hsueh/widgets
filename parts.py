@@ -137,3 +137,5 @@ class BottomFrame(ttk.LabelFrame):
         selectedIndex = combobox.current()
         selectedValue = self.comboBoxValues[selectedIndex]
         self.w.comboBoxEventOfBottomFrame(selectedValue)
+
+        
